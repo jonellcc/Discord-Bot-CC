@@ -1,7 +1,7 @@
-# 🤖 Discord Bot Documentation
+# 🤖 Discord Bot Documentation 
 
 ## 🚀 Introduction
-This is a modular **Discord.js v14 bot** with support for:
+This is a modular **Discord.js v15 bot by Jonell Hutchin Magallanes** with support for:
 - **Prefix commands** (`!ping`)  
 - **Mention commands** (`@BotName ping`)  
 - **Slash commands** (`/ping`)  
@@ -11,7 +11,7 @@ This is a modular **Discord.js v14 bot** with support for:
 - **Logging system**  
 
 The bot is designed to be **extensible**, so you can add commands, slash commands, and events easily.
-
+**Lightweight**, so can run where the server you want like linux or localhost
 ---
 
 ## ⚙️ How It Works
