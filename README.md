@@ -45,8 +45,8 @@ The bot is designed to be **extensible**, so you can add commands, slash command
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-repo/your-bot.git
-cd your-bot
+git clone https://github.com/jonellcc/Discord-Bot-CC.git
+cd Discord-Bot-CC
 ```
 
 ### 2. Install Dependencies
@@ -66,7 +66,7 @@ Create `config.json` in the root directory:
 
 ### 4. Start the Bot
 ```bash
-node index.js
+node index.js or npm start
 ```
 
 ---
