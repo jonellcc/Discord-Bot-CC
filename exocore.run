@@ -1,0 +1,7 @@
+export = {
+  "npm i";
+}
+
+function = {
+  run = "node index"
+}

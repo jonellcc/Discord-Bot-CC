@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Forest Animation</title>
+		<style>
+				body {
+						margin: 0;
+						overflow: hidden;
+						background: linear-gradient(to bottom, #87CEEB 0%, #E0F7FA 100%);
+						height: 100vh;
+						transition: background 2s ease;
+				}
+
+				.night {
+						background: linear-gradient(to bottom, #0F2027 0%, #203A43 50%, #2C5364 100%) !important;
+				}
+
+				.sun {
+						position: absolute;
+						width: 100px;
+						height: 100px;
+						background: #FDB813;
+						border-radius: 50%;
+						box-shadow: 0 0 50px #FDB813;
+						top: 100px;
+						left: 50%;
+						transform: translateX(-50%);
+						transition: all 1s ease;
+				}
+
+				.moon {
+						position: absolute;
+						width: 80px;
+						height: 80px;
+						background: #E6E6FA;
+						border-radius: 50%;
+						box-shadow: 0 0 30px #E6E6FA;
+						top: -100px;
+						left: 50%;
+						transform: translateX(-50%);
+						transition: all 1s ease;
+				}
+
+				.show-moon {
+						top: 100px !important;
+				}
+
+				.hide-sun {
+						top: -100px !important;
+				}
+
+				.ground {
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						height: 150px;
+						background: #4CAF50;
+				}
+
+				.tree {
+						position: absolute;
+						bottom: 150px;
+				}
+
+				.trunk {
+						width: 30px;
+						height: 100px;
+						background: #8B4513;
+						margin-left: -15px;
+				}
+
+				.leaves {
+						width: 100px;
+						height: 120px;
+						background: #2E8B57;
+						border-radius: 50%;
+						margin-left: -50px;
+						margin-bottom: -20px;
+						position: relative;
+						animation: sway 3s infinite alternate ease-in-out;
+						transform-origin: top center;
+				}
+
+				@keyframes sway {
+						0% { transform: rotate(-3deg); }
+						100% { transform: rotate(3deg); }
+				}
+
+				.stars {
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						opacity: 0;
+						transition: opacity 1s ease;
+				}
+
+				.star {
+						position: absolute;
+						background: white;
+						border-radius: 50%;
+						animation: twinkle 2s infinite alternate;
+				}
+
+				@keyframes twinkle {
+						0% { opacity: 0.3; }
+						100% { opacity: 1; }
+				}
+
+				.show-stars {
+						opacity: 1 !important;
+				}
+		</style>
+</head>
+<body>
+		<div class="sun"></div>
+		<div class="moon"></div>
+		<div class="stars"></div>
+		<div class="ground"></div>
+
+		<audio id="bgMusic" loop autoplay>
+				<source src="https://assets.mixkit.co/music/preview/mixkit-forest-birds-1231.mp3" type="audio/mpeg">
+		</audio>
+
+		<script>
+				function createStars() {
+						const starsContainer = document.querySelector('.stars');
+						starsContainer.innerHTML = '';
+
+						for (let i = 0; i < 100; i++) {
+								const star = document.createElement('div');
+								star.classList.add('star');
+
+								const size = Math.random() * 3;
+								star.style.width = `${size}px`;
+								star.style.height = `${size}px`;
+
+								star.style.left = `${Math.random() * 100}%`;
+								star.style.top = `${Math.random() * 50}%`;
+								star.style.animationDelay = `${Math.random() * 2}s`;
+
+								starsContainer.appendChild(star);
+						}
+				}
+
+				function createTrees() {
+						const ground = document.querySelector('.ground');
+
+						for (let i = 0; i < 10; i++) {
+								const tree = document.createElement('div');
+								tree.classList.add('tree');
+
+								const left = 5 + Math.random() * 90;
+								tree.style.left = `${left}%`;
+
+								const height = 150 + Math.random() * 100;
+								tree.style.height = `${height}px`;
+
+								const trunk = document.createElement('div');
+								trunk.classList.add('trunk');
+
+								const leaves = document.createElement('div');
+								leaves.classList.add('leaves');
+								leaves.style.animationDelay = `${Math.random() * 3}s`;
+
+								tree.appendChild(trunk);
+								tree.appendChild(leaves);
+								ground.appendChild(tree);
+						}
+				}
+
+				function updateTime() {
+						const now = new Date();
+						const hours = now.getHours();
+						const minutes = now.getMinutes();
+						const seconds = now.getSeconds();
+
+						const sun = document.querySelector('.sun');
+						const moon = document.querySelector('.moon');
+						const body = document.querySelector('body');
+						const stars = document.querySelector('.stars');
+
+						const isDaytime = hours >= 6 && hours < 18;
+
+						if (isDaytime) {
+								body.classList.remove('night');
+								sun.classList.remove('hide-sun');
+								moon.classList.remove('show-moon');
+								stars.classList.remove('show-stars');
+
+								const dayProgress = ((hours - 6) * 60 + minutes) / (12 * 60);
+								const sunX = 50 + 40 * Math.sin(dayProgress * Math.PI);
+								const sunY = 20 + 60 * (1 - Math.cos(dayProgress * Math.PI));
+
+								sun.style.left = `${sunX}%`;
+								sun.style.top = `${sunY}px`;
+						} else {
+								body.classList.add('night');
+								sun.classList.add('hide-sun');
+								moon.classList.add('show-moon');
+								stars.classList.add('show-stars');
+
+								const nightProgress = ((hours - 18) * 60 + minutes) / (12 * 60);
+								const moonX = 50 + 40 * Math.sin(nightProgress * Math.PI);
+								const moonY = 20 + 60 * (1 - Math.cos(nightProgress * Math.PI));
+
+								moon.style.left = `${moonX}%`;
+								moon.style.top = `${moonY}px`;
+						}
+				}
+
+				function init() {
+						createStars();
+						createTrees();
+						updateTime();
+
+						setInterval(updateTime, 60000);
+
+						document.addEventListener('click', function() {
+								const audio = document.getElementById('bgMusic');
+								audio.play().catch(e => console.log('Autoplay prevented'));
+						});
+				}
+
+				window.onload = init;
+		</script>
+</body>
+</html>
