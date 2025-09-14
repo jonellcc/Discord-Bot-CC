@@ -1,19 +1,19 @@
 {
-  "name": "nodejs",
+  "name": "Discord Bot-CC",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Jonell Hutchin Magallanes",
+  "description": "Discord Bot file and Light Weight and you can any server linux",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "keywords": [],
+  "keywords": ["Discord Bot", "Bot", "ChatBot Community"],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.0.6",
-    "@whiskeysockets/baileys": "^6.7.17",
     "archiver": "^7.0.1",
-    "awesome-phonenumber": "^7.4.0",
     "axios": "^1.7.9",
     "chalk": "^4.1.2",
     "discord.js": "^14.18.0",
